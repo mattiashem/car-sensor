@@ -1,0 +1,15 @@
+version: '2'
+services:
+  rabbitmq:
+    image: rabbitmq:alpine
+  feeder:
+    build: feeder/.
+    volumes:
+      - ./feeder/:/code
+    command: tail -f /etc/hosts
+  sensor:
+    build: sensor/.
+    volumes:
+      - ./sensor/:/code
+    command: tail -f /etc/hosts
+

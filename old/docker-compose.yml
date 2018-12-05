@@ -1,0 +1,19 @@
+version: '3'
+services:
+  #Webbpages
+  api_deployer:
+    build: api/.
+    volumes:
+      - ./api/:/code
+  feeder:
+    build: feeder/.
+    volumes:
+      - ./feeder/:/code
+    command: tail -f /etc/hosts
+  sensor:
+    build: sensor/.
+    volumes:
+      - ./sensor/:/code
+    command: tail -f /etc/hosts
+  rabbitmq:
+    image: rabbitmq:3.7-alpine

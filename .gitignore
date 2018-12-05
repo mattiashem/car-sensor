@@ -1,0 +1,5 @@
+*.pyc
+*.json
+api/__pycache__
+api/env
+api/backend/__pycache__
