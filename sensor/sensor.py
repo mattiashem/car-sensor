@@ -55,7 +55,7 @@ def add_to_que(message):
 	
 	channel.basic_publish(exchange='',
 	                      routing_key='task_queue',
-	                      body=json.dumps(message),
+	                      body=message,
 	                      properties=pika.BasicProperties(
 	                         delivery_mode = 2, # make message persistent
 	                      ))
@@ -79,7 +79,8 @@ while True:
 
 	data ={"airport":"arlanda","run":"{0}".format(name_of_run),"data":{"temp":"{0}".format(temp),"brushlenght":"{0}".format(brushlenght),"power":"{0}".format(power)}}
 	print(data)
-	add_to_que(data)
+	dataClean = str(data).replace('\'','"')
+	add_to_que(dataClean)
 	time.sleep(300)
 
 

@@ -6,4 +6,4 @@ WORKDIR /code
 RUN pip3 install -r requirements.txt
 
 
-CMD python sensor.py
+CMD python -u sensor.py

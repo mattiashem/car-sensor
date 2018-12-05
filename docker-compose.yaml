@@ -6,10 +6,12 @@ services:
     build: feeder/.
     volumes:
       - ./feeder/:/code
-    command: tail -f /etc/hosts
+    #command: tail -f /etc/hosts
+    environment:
+      - FIREBASE=https://.firebaseio.com/
   sensor:
     build: sensor/.
     volumes:
       - ./sensor/:/code
-    command: tail -f /etc/hosts
+    #command: tail -f /etc/hosts
 

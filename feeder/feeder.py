@@ -10,7 +10,7 @@ import json
 import pika
 import time
 import socket
-
+from sendFirebase import *
 
 
  
@@ -45,25 +45,6 @@ connection = pika.BlockingConnection(pika.ConnectionParameters(host='rabbitmq',h
 channel = connection.channel() 
 
 
-def send_data(data, endpoint):
-	'''
-	Send the data to en endpoint api
-	'''
-	print(data)
-	#req = urllib.request.Request(endpoint)
-	#req.add_header('Content-Type', 'application/json; charset=utf-8')
-	#jsondata = json.dumps(str(data))
-	#jsondataasbytes = jsondata.encode('utf-8')   # needs to be bytes
-	
-	#Send data to API
-	#req.add_header('Content-Length', len(jsondataasbytes))
-	#response = urllib.request.urlopen(req, data)
-	#print(response.getcode())
-
-	#if response.getcode() == 200:
-	#	print("sent")
-	#else:
-        #		print("Error send back to que")
 
 
 channel.queue_declare(queue='task_queue', durable=True)
@@ -73,7 +54,7 @@ def callback(ch, method, properties, body):
     print(" [x] Received %r" % body)
     time.sleep(body.count(b'.'))
     print("Send data to DB")
-    send_data(body,'http://api_deployer:8080/do/action')
+    adddataFirebase(body)
     print(" [x] Done")
     ch.basic_ack(delivery_tag = method.delivery_tag)
 
